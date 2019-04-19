@@ -2,21 +2,40 @@ package com.capstoneproject.capstoneproject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(path = "/login")
+@RequestMapping(path = "/api")
     public class PersonController {
 
     @Autowired
     PersonRepository personRepository;
 
-    @GetMapping(path = "/validate")
+    Person person = new Person();
+
+    @GetMapping(path = "/deposit")
     public @ResponseBody
-    String validateCredentials () {
-        return "User Login Successful.";
+    String deposit(@RequestParam int person_id, @RequestParam int amount) {
+        return "Saved Deposit.";
+    }
+
+    @GetMapping(path = "/withdrawal")
+    public @ResponseBody
+    int withdrawal() {
+      // int withdrawal = personRepository.
+        return 1;
+    }
+
+    @GetMapping(path = "/transfer")
+    public @ResponseBody
+    String transfer(@RequestParam int incoming_person_id, @PathVariable int outgoing_person_id,
+                    @RequestParam String outgoing_account, @RequestParam int amount) {
+        return "Saved Withdrawal.";
+    }
+
+    @GetMapping(path = "/totalBalance")
+    public @ResponseBody
+    Integer totalBalance() {
+        return personRepository.getTotalBalanceFromFirstUser(2);
     }
 }
