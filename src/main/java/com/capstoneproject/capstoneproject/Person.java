@@ -9,7 +9,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PERSON_ID")
-    private int person_id;
+    private int personId;
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "PASSWORD")
@@ -27,8 +27,7 @@ public class Person {
     @Column(name = "CHECKING_BALANCE")
     private double checking;
 
-    protected Person() {
-    }
+    protected Person(){}
 
     public Person(String username, String password, double balance, int withdrawals, int deposits, int transfers, double savings, double checking) {
         this.username = username;
