@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {
-
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    @ManyToOne
@@ -57,7 +56,7 @@ public class Transaction {
 
     /** Default constructor for the transaction class. */
     protected Transaction() {
-        person_id = 2;
+        person_id = 00000002;
         transactionCategory = "TEST";
         transactionType = "TEST";
         transactionDate = new Date();
