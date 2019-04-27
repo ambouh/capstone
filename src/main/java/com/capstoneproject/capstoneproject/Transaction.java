@@ -159,6 +159,8 @@ public class Transaction {
         this.transactionMemo = transactionMemo;
     }
 
+    public int getTransactionId() { return TRANSACTION_ID;}
+
     public String toString() {
         String returnString = ("Person ID:" + person_id + "; " +
                                "Date: " + transactionDate + "; " +
