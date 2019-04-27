@@ -12,14 +12,14 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id" +
-            "AND TRANSACTION_ID = :Transaction_id", nativeQuery = true)
+    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id " +
+            "AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
     String viewTransaction(@Param("person_id") Integer person_id, @Param("transaction_id") Integer transaction_id);
 
     @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id", nativeQuery = true)
     List<String> getAllTransactionHistoryByID(@Param("person_id") Integer person_id);
 
-    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id" +
+    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id " +
             "ORDER BY TRANSACTION_DATE ASC", nativeQuery = true)
     String getAllTransactionHistoryByIDAscending(@Param("person_id") Integer person_id);
 
