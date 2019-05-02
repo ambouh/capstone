@@ -52,7 +52,7 @@ public class Transaction {
      * the second part from the last 4 of the user ID,
      * and the last segment is built from a random integer.*/
     @Column (name = "TRANSACTION_ID")
-    private final int TRANSACTION_ID;
+    private final long TRANSACTION_ID;
 
     /** Default constructor for the transaction class. */
     protected Transaction() {
@@ -67,9 +67,15 @@ public class Transaction {
         String pattern = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         String personID = Integer.toString(person_id);
-        String stringID = (sdf.format(transactionDate) + personID.substring(personID.length() - 4) +
-                Double.toString((Math.floor(Math.random() * 10001))));
-        TRANSACTION_ID = Integer.parseInt(stringID);
+        int personLength = personID.length();
+        if (personLength < 4) {
+            for (int i = personLength; i < 4; i++) {
+                personID = "0" + personID;
+            }
+            personLength = 4;
+        }
+        String stringID = (sdf.format(transactionDate) + personID.substring(personLength - 4,personLength) + (int)(Math.floor(Math.random() * 10001)));
+        TRANSACTION_ID = Long.parseLong(stringID);
     }
 
 
@@ -98,9 +104,16 @@ public class Transaction {
         String pattern = "yyyyMMdd";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         String personID = Integer.toString(person_id);
-        String stringID = (sdf.format(transactionDate) + personID.substring(personID.length() - 4) +
-                          Double.toString((Math.floor(Math.random() * 10001))));
-        TRANSACTION_ID = Integer.parseInt(stringID);
+        int personLength = personID.length();
+        if (personLength < 4) {
+            for (int i = personLength; i < 4; i++) {
+                personID = "0" + personID;
+            }
+            personLength = 4;
+        }
+        String stringID = (sdf.format(transactionDate) + personID.substring(personLength - 4,personLength) +
+                           (int)(Math.floor(Math.random() * 10001)));
+        TRANSACTION_ID = Long.parseLong(stringID);
     }
 
     public String getTransactionCategory() {
@@ -159,10 +172,11 @@ public class Transaction {
         this.transactionMemo = transactionMemo;
     }
 
-    public int getTransactionId() { return TRANSACTION_ID;}
+    public long getTransactionId() { return TRANSACTION_ID;}
 
     public String toString() {
-        String returnString = ("Person ID:" + person_id + "; " +
+        String returnString = ("Transaction ID:" + TRANSACTION_ID + "; " +
+                               "Person ID:" + person_id + "; " +
                                "Date: " + transactionDate + "; " +
                                "Type: " + transactionType + "; " +
                                "Merchant: " + transactionMerchant + "; " +
