@@ -1,5 +1,7 @@
 package com.capstoneproject.capstoneproject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,17 @@ import org.springframework.web.bind.annotation.*;
 //        return personRepository.findAllByUsernameAndPassword(username, password).isEmpty();
 //    }
 
+    /**
+     * @param username
+     * @param password
+     * @return Returns the PERSON_ID of the newly created person
+     */
+    @GetMapping(path = "/createAccount", produces = "application/json")
+    public @ResponseBody int createNewUser(@RequestParam String username, @RequestParam String password) {
+        personRepository.createNewAccount(username, password);
+        return personRepository.getPersonID(username, password);
+    }
+
     @GetMapping(path = "/deposit")
     public @ResponseBody
     String deposit(@RequestParam int person_id, @RequestParam int amount) {
@@ -33,7 +46,7 @@ import org.springframework.web.bind.annotation.*;
         return "Successful Deposit";
     }
 
-    @GetMapping(path = "/withdrawal")
+    @GetMapping(path = "/withdrawal", produces = "application/json")
     public @ResponseBody
     String withdrawal(@RequestParam int person_id, @RequestParam int amount) {
         int balance = personRepository.getTotalBalanceFromUser(person_id) - amount;
@@ -41,7 +54,7 @@ import org.springframework.web.bind.annotation.*;
         int withdrawals = personRepository.getTotalWithdrawalsFromUser(person_id);
         withdrawals++;
         personRepository.updateTotalNumberOfWithdrawals(withdrawals, person_id);
-        return "Successful Withdrawal";
+        return "Successful Withdrawal.";
     }
 
     @GetMapping(path = "/transfer")

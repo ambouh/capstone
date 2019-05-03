@@ -10,6 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO PERSON (USERNAME, PASSWORD) VALUES (:username, :password)", nativeQuery = true)
+    void createNewAccount(@Param("username") String username, @Param("password") String password);
+
+    @Query(value = "SELECT PERSON_ID FROM PERSON WHERE USERNAME = :username AND PASSWORD = :password", nativeQuery = true)
+    int getPersonID(@Param("username") String username, @Param("password") String password);
+
     @Query(value = "SELECT CHECKING_BALANCE FROM PERSON WHERE PERSON_ID = :person_id", nativeQuery = true)
     int getCheckingBalanceFromFirstUser(@Param("person_id") Integer person_id);
 
