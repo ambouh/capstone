@@ -96,4 +96,18 @@ public class Person {
         this.transfers = transfers;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", balance=" + balance +
+                ", withdrawals=" + withdrawals +
+                ", deposits=" + deposits +
+                ", transfers=" + transfers +
+                ", savings=" + savings +
+                ", checking=" + checking +
+                '}';
+    }
 }
