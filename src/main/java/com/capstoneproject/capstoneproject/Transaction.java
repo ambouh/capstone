@@ -177,7 +177,6 @@ public class Transaction {
     @Override
     public String toString() {
 <<<<<<< HEAD
-<<<<<<< HEAD
         String returnString = ("Transaction ID:" + TRANSACTION_ID + "; " +
                                "Person ID:" + person_id + "; " +
                                "Date: " + transactionDate + "; " +
@@ -190,8 +189,6 @@ public class Transaction {
 
         return returnString;
 =======
-=======
->>>>>>> 9e3566d485ca7aa0a464b0409fe66c2fdc81e0e5
         return "Transaction{" +
                 "person_id=" + person_id +
                 ", transactionCategory='" + transactionCategory + '\'' +
@@ -203,9 +200,6 @@ public class Transaction {
                 ", transactionMemo='" + transactionMemo + '\'' +
                 ", TRANSACTION_ID=" + TRANSACTION_ID +
                 '}';
-<<<<<<< HEAD
->>>>>>> 9e3566d485ca7aa0a464b0409fe66c2fdc81e0e5
-=======
 >>>>>>> 9e3566d485ca7aa0a464b0409fe66c2fdc81e0e5
     }
 }
