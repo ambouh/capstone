@@ -174,7 +174,9 @@ public class Transaction {
 
     public long getTransactionId() { return TRANSACTION_ID;}
 
+    @Override
     public String toString() {
+<<<<<<< HEAD
         String returnString = ("Transaction ID:" + TRANSACTION_ID + "; " +
                                "Person ID:" + person_id + "; " +
                                "Date: " + transactionDate + "; " +
@@ -186,7 +188,18 @@ public class Transaction {
                                "Categories: " + transactionCategory + "; ");
 
         return returnString;
+=======
+        return "Transaction{" +
+                "person_id=" + person_id +
+                ", transactionCategory='" + transactionCategory + '\'' +
+                ", transactionType='" + transactionType + '\'' +
+                ", transactionDate=" + transactionDate +
+                ", transactionAmount=" + transactionAmount +
+                ", transactionAccountID=" + transactionAccountID +
+                ", transactionMerchant='" + transactionMerchant + '\'' +
+                ", transactionMemo='" + transactionMemo + '\'' +
+                ", TRANSACTION_ID=" + TRANSACTION_ID +
+                '}';
+>>>>>>> 9e3566d485ca7aa0a464b0409fe66c2fdc81e0e5
     }
-
-
 }
