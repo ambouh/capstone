@@ -86,8 +86,11 @@ public class TransactionController {
 
     @GetMapping(path = "/remove-transaction")
     public @ResponseBody
-    String removeTransaction(@RequestParam int transaction_id) {
-        String result = transactionRepository.removeTransaction(transaction_id);
-        return result;
+    String removeTransaction(@RequestParam int person_id,@RequestParam long transaction_id) {
+        int result = transactionRepository.removeTransaction(person_id,transaction_id);
+        if (result == 1)
+            return "Transaction " + transaction_id + " successfully removed.";
+        else
+            return "Error removing transaction";
     }
 }
