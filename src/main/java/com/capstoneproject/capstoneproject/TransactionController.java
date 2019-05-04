@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.util.List;
 
 @Controller
@@ -58,18 +62,35 @@ public class TransactionController {
 
     @GetMapping(path = "/add-transaction")
     public @ResponseBody
-    String addTransaction(@RequestParam Double transaction_amount, @RequestParam int person_id, @RequestParam int transaction_id,
-                          @RequestParam String transaction_date, @RequestParam String transaction_type, @RequestParam String transaction_category,
-                          @RequestParam String transaction_memo, @RequestParam String transaction_merchant, @RequestParam String transaction_account_id) {
-        String result = transactionRepository.addTransaction(transaction_amount, person_id, transaction_id, transaction_date,transaction_type,
-                                                             transaction_category,transaction_memo,transaction_merchant,transaction_account_id);
-        return result;
+    String addTransaction(@RequestParam Double transaction_amount, @RequestParam int person_id, @RequestParam String transaction_date,
+                          @RequestParam String transaction_type, @RequestParam String transaction_category, @RequestParam String transaction_memo,
+                          @RequestParam String transaction_merchant, @RequestParam int transaction_account_id) {
+        Date transactionDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sqlformatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        try {
+            transactionDate = formatter.parse(transaction_date);
+        }
+        catch (ParseException e) {e.printStackTrace();}
+
+        Transaction tempTransaction = new Transaction(transaction_category,transaction_type,transactionDate,transaction_amount,transaction_account_id,
+                                                      transaction_merchant,transaction_memo,person_id);
+        int result = transactionRepository.addTransaction(transaction_amount,person_id,tempTransaction.getTransactionId(),sqlformatter.format(transactionDate),transaction_type,
+                                                          transaction_category,transaction_memo,transaction_merchant,transaction_account_id);
+
+        if (result == 1)
+            return "Created Transaction: " + tempTransaction.toString();
+        else
+            return ("Result is: " + result);
     }
 
     @GetMapping(path = "/remove-transaction")
     public @ResponseBody
-    String removeTransaction(@RequestParam int transaction_id) {
-        String result = transactionRepository.removeTransaction(transaction_id);
-        return result;
+    String removeTransaction(@RequestParam int person_id,@RequestParam long transaction_id) {
+        int result = transactionRepository.removeTransaction(person_id,transaction_id);
+        if (result == 1)
+            return "Transaction " + transaction_id + " successfully removed.";
+        else
+            return "Error removing transaction";
     }
 }
