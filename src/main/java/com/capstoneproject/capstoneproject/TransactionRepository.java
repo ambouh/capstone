@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id " +
+    @Query(value = "SELECT * FROM TRANSACTION WHERE PERSON_ID = :person_id " +
             "AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
-    String viewTransaction(@Param("person_id") Integer person_id, @Param("transaction_id") Integer transaction_id);
+    String viewTransaction(@Param("person_id") Integer person_id, @Param("transaction_id") long transaction_id);
 
     @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id", nativeQuery = true)
     List<String> getAllTransactionHistoryByID(@Param("person_id") Integer person_id);
@@ -29,20 +29,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     @Query(value = "UPDATE TRANSACTION SET TRANSACTION_CATEGORY = :transaction_category WHERE PERSON_ID = :person_id AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
     String updateTransactionCategory(@Param("transaction_category") String transaction_category,
                                         @Param("person_id") Integer person_id,
-                                            @Param("transaction_id") Integer transaction_id);
+                                            @Param("transaction_id") long transaction_id);
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE TRANSACTION SET TRANSACTION_DATE = :transaction_date WHERE PERSON_ID = :person_id AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
     String updateTransactionDate(@Param("transaction_date") String transaction_date,
                                     @Param("person_id") Integer person_id,
-                                        @Param("transaction_id") Integer transaction_id );
+                                        @Param("transaction_id") long transaction_id );
     @Modifying
     @Transactional
     @Query(value = "UPDATE TRANSACTION SET TRANSACTION_AMOUNT = :transaction_amount WHERE PERSON_ID = :person_id AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
     String updateTransactionAmount(@Param("transaction_amount") Double transaction_amount,
                                         @Param("person_id") Integer person_id,
-                                            @Param("transaction_id") Integer transaction_id );
+                                            @Param("transaction_id") long transaction_id );
 
     @Modifying
     @Transactional
