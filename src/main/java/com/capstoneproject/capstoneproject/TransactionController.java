@@ -34,28 +34,31 @@ public class TransactionController {
 
     @GetMapping(path = "/transaction")
     public @ResponseBody
-    String viewTransaction(@RequestParam int person_id, @RequestParam int transaction_id) {
+    String viewTransaction(@RequestParam int person_id, @RequestParam long transaction_id) {
         String transaction = transactionRepository.viewTransaction(person_id,transaction_id);
-        return "Transaction  " + transaction;
+        if (transaction != null)
+            return transaction;
+        else
+            return "Error retrieving transaction";
     }
 
     @GetMapping(path = "/update-transaction-category")
     public @ResponseBody
-    String updateTransactionCategory(@RequestParam String transaction_category, @RequestParam int person_id, @RequestParam int transaction_id) {
+    String updateTransactionCategory(@RequestParam String transaction_category, @RequestParam int person_id, @RequestParam long transaction_id) {
         String updatedTransaction = transactionRepository.updateTransactionCategory(transaction_category, person_id, transaction_id);
         return "Transaction  " + updatedTransaction;
     }
 
     @GetMapping(path = "/update-transaction-date")
     public @ResponseBody
-    String updateTransactionDate(@RequestParam String transaction_date, @RequestParam int person_id, @RequestParam int transaction_id) {
+    String updateTransactionDate(@RequestParam String transaction_date, @RequestParam int person_id, @RequestParam long transaction_id) {
         String updatedTransaction = transactionRepository.updateTransactionDate(transaction_date, person_id, transaction_id);
         return "Transaction  " + updatedTransaction;
     }
 
     @GetMapping(path = "/update-transaction-amount")
     public @ResponseBody
-    String updateTransactionAmount(@RequestParam Double transaction_amount, @RequestParam int person_id, @RequestParam int transaction_id) {
+    String updateTransactionAmount(@RequestParam Double transaction_amount, @RequestParam int person_id, @RequestParam long transaction_id) {
         String updatedTransaction = transactionRepository.updateTransactionAmount(transaction_amount, person_id, transaction_id);
         return "Transaction  " + updatedTransaction;
     }
