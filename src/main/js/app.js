@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import axios from "axios";
+import { BrowserRouter } from 'react-router-dom';
+import WelcomeScreen from './WelcomeScreen';
 
 class App extends Component {
 
-    getUser(event){
-        let localServer = "http://localhost:60080/api";
-        event.preventDefault();
-
-        axios.get(localServer + "/all?person_id=1")
-            .then((resp)=>{
-                const data = resp.data.toString();
-                console.log(data);
-            }).catch();
-    };
-
     render() {
+        let logo = "https://ambouh.github.io/transaxions/static/media/whitelogo.157efa52.svg";
         return (
             <div id="container">
-                SHOW ME REACT...IS BEING RENDERED!
-                <button onClick={this.getUser}>Click me to get the data</button>
+                <div className="upperDiv">
+                    <img src={logo} className="logo" alt="Transaxions Logo" />
+                </div>
+                <div className="midDiv">
+                    <WelcomeScreen/>
+                </div>
+                <div className="bottomDiv">
+                    <p>Copyright 2019 Transaxions | World's Greatest Ledger App</p>
+                </div>
             </div>
         );
     }
 }
 
 render(
-    <App />,
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
     document.getElementById('react')
 );
