@@ -27,3 +27,14 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+### ReactJS ##
+target
+bower_components
+node_modules
+node
+*.log
+asciidoctor.css
+built
+dump.rdb
+package-lock.json
