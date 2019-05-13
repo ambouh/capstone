@@ -63,8 +63,7 @@ class AllTransactions extends Component {
     handleTransactionView = () => {
         const person_id = this.getPersonId();
         this.getUserTransactions(person_id).then((response) => {
-            console.log("I'm before userTrans state is sps to be set and cause the tbl to update");
-            this.setState({userTransaction: response})
+        this.setState({userTransaction: response})
         });
     };
 

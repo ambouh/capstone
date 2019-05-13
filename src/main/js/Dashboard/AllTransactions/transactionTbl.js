@@ -5,8 +5,6 @@ class TransactionTbl extends Component {
 
     render() {
         const {userTransaction} = this.props;
-
-        console.log("from trTbl: " + userTransaction);
         return (
             <table className={"transactionTbl"}>
                 <thead>

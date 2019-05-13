@@ -45,7 +45,6 @@ class Summary extends Component {
         const person_id = localStorage.getItem("person_id");
 
         this.getPersonData(person_id).then((response) => {
-            console.log(response)
             this.setState({userData: response})
         });
 
