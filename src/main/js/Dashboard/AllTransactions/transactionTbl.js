@@ -18,11 +18,13 @@ class TransactionTbl extends Component {
                 <tbody>
                 {userTransaction.map((data, i) => {
                     return (
+
                         <tr key={i}>
-                            <td>{data["TRANSACTION_MERCHANT"]}</td>
-                            <td>$ {data["TRANSACTION_AMOUNT"]}</td>
-                            <td>{data["TRANSACTION_CATEGORY"]}</td>
-                            <td>{data["TRANSACTION_TYPE"]}</td>
+                            const arr = data.split(",");
+                            <td>{arr[0]}</td>
+                            <td>$ {arr[1]}</td>
+                            <td>{arr[2]}</td>
+                            <td>{arr[3]}</td>
                         </tr>
                     )
                 })}

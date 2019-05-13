@@ -16,7 +16,7 @@ class AllTransactions extends Component {
     title = "All Transactions";
 
     getPersonId() {
-        return localStorage.getItem("person_id").toString();
+        return localStorage.getItem("person_id");
     }
 
     getUserTransactions(person_id){
@@ -31,6 +31,14 @@ class AllTransactions extends Component {
                 return response.data;
             });
     }
+
+    componentDidMount() {
+        const person_id = this.getPersonId();
+        this.getUserTransactions(person_id).then((response) => {
+            this.setState({userTransaction: response})
+        });
+    }
+
 
     handleTransactionView = (merchant, amount, category) => {
         let newTrans;
