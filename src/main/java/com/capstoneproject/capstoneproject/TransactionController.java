@@ -89,6 +89,14 @@ public class TransactionController {
             return ("Result is: " + result);
     }
 
+    @GetMapping(path = "/addTransaction")
+    public @ResponseBody
+    String addTransaction(@RequestParam String transaction_merchant, @RequestParam int person_id,
+                          @RequestParam Double transaction_amount, @RequestParam String transaction_category){
+        return addTransaction(transaction_amount, person_id, "", transaction_category, transaction_category, transaction_category, transaction_merchant, 1);
+
+    }
+
     @GetMapping(path = "/remove-transaction")
     public @ResponseBody
     String removeTransaction(@RequestParam int person_id,@RequestParam long transaction_id) {

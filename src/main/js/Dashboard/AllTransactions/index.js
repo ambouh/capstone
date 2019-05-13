@@ -42,17 +42,22 @@ class AllTransactions extends Component {
 
     handleTransactionView = (merchant, amount, category) => {
         let newTrans;
-        let obj ={};
         if ((merchant!=="") &&(!isNaN(amount)) &&(category !=="")) {
-            obj={
-                "TRANSACTION_MERCHANT" : merchant,
-                "TRANSACTION_AMOUNT" : amount,
-                "TRANSACTION_CATEGORY" : category,
-                "TRANSACTION_TYPE" : "WITHDRAWAL"
-            };
 
-            newTrans = this.state.userTransaction.slice();
-            newTrans.push(obj);
+            const verb = 'addTransaction?'+
+                'transaction_merchant=' + merchant +
+                '&person_id=' +this.getPersonId() +
+                '&transaction_amount=' + amount +
+                '&transaction_category=' + category;
+            const URL = Auth.getURL();
+            const ax = axios.create({
+                baseURL: URL
+            });
+
+            newTrans = ax.get(verb)
+                .then((response)=>{
+                    return response.data;
+                });
 
             this.setState({isSubmitted: true, userTransaction: newTrans});
         }
