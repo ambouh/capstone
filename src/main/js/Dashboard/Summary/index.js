@@ -19,11 +19,11 @@ class Summary extends Component {
 
         return ax.get(verb)
             .then((response) => {
-                const data = response.data;
-                const obj = JSON.parse(data);
+                const data = response.data.split(",");
 
 
-                return obj;
+
+                return data;
             });
     };
 
@@ -42,12 +42,13 @@ class Summary extends Component {
 
 
     componentDidMount() {
-        //const this.getPersonData();
-        this.getPersonData().then((response) => {
-            let arr = response.data.split(",");
-            this.setState({userData: arr})
-        });
         const person_id = localStorage.getItem("person_id");
+
+        this.getPersonData(person_id).then((response) => {
+            console.log(response)
+            this.setState({userData: response})
+        });
+
         this.getUserTransactions(person_id).then((response) => {
             const top3 = [];
             for (let i = 0; i < 3; i++) {
@@ -58,6 +59,7 @@ class Summary extends Component {
     }
 
     render() {
+        let { userData } = this.state;
         return(
             <div className="templateDiv">
                 <h1 className={"templateTitle"} style={{marginBottom: 0}}>{this.title}</h1>
@@ -90,17 +92,17 @@ class Summary extends Component {
                             <ul className={"recTransactions"}>
                                 <li className={"transaction"}>
                                     <div>
-                                        <p>CHECKING ACCOUNT #00{this.state.userData[0]}</p>
+                                        <p>CHECKING ACCOUNT #00{userData[0]}</p>
                                         <p>VISA </p>
                                     </div>
-                                    <span style={{color: "#3E7BB8"}}>${this.state.userData[2]}</span>
+                                    <span style={{color: "#3E7BB8"}}>${userData[2]}</span>
                                 </li>
                                 <li className={"transaction"}>
                                     <div>
-                                        <p>SAVINGS ACCOUNT #00{this.state.userData[0]}</p>
+                                        <p>SAVINGS ACCOUNT #00{userData[0]}</p>
                                         <p>VISA </p>
                                     </div>
-                                    <span style={{color: "#3E7BB8"}}>${this.state.userData[1]}</span>
+                                    <span style={{color: "#3E7BB8"}}>${userData[1]}</span>
                                 </li>
                             </ul>
                         </div>

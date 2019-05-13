@@ -17,10 +17,11 @@ class TransactionTbl extends Component {
                 </thead>
                 <tbody>
                 {userTransaction.map((data, i) => {
+                    const arr = data.split(",");
                     return (
 
                         <tr key={i}>
-                            const arr = data.split(",");
+
                             <td>{arr[0]}</td>
                             <td>$ {arr[1]}</td>
                             <td>{arr[2]}</td>
