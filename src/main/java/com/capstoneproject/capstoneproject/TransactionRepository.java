@@ -17,7 +17,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
             "AND TRANSACTION_ID = :transaction_id", nativeQuery = true)
     String viewTransaction(@Param("person_id") Integer person_id, @Param("transaction_id") long transaction_id);
 
-    @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id", nativeQuery = true)
+    @Query(value = "SELECT TRANSACTION_MERCHANT, TRANSACTION_AMOUNT, TRANSACTION_MEMO, TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_ID FROM TRANSACTION WHERE PERSON_ID = :person_id", nativeQuery = true)
     List<String> getAllTransactionHistoryByID(@Param("person_id") Integer person_id);
 
     @Query(value = "SELECT TRANSACTION_CATEGORY, TRANSACTION_TYPE, TRANSACTION_DATE, TRANSACTION_AMOUNT FROM TRANSACTION WHERE PERSON_ID = :person_id " +

@@ -9,8 +9,8 @@ class Login extends Component {
     };
 
     user = {
-        username: "testuser",
-        password: "test"
+        username: "jsmith",
+        password: "pw"
     };
     handleClick = (event)=>{
         event.preventDefault();

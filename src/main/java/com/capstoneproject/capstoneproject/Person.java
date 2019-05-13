@@ -99,15 +99,15 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "personId=" + personId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", balance=" + balance +
-                ", withdrawals=" + withdrawals +
-                ", deposits=" + deposits +
-                ", transfers=" + transfers +
-                ", savings=" + savings +
-                ", checking=" + checking +
+                "person_id:" + personId +
+                ", username:'" + username + '\'' +
+                ", password:'" + password + '\'' +
+                ", balance:" + balance +
+                ", withdrawals:" + withdrawals +
+                ", deposits:" + deposits +
+                ", transfers:" + transfers +
+                ", savings:" + savings +
+                ", checking:" + checking +
                 '}';
     }
 }

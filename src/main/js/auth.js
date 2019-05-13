@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 class Auth {
-    constructor(){
-        this.authenticated = false;
-    }
     development = 'http://localhost:3000/';
 
     login(username, password, callback) {
@@ -38,9 +35,7 @@ class Auth {
     }
 
     logout(callback) {
-        localStorage.removeItem("user");
         localStorage.removeItem("person_id");
-        this.authenticated = false;
         callback();
     }
 
@@ -49,11 +44,6 @@ class Auth {
     }
 
 
-    getUser(username, data){
-        for(let i=0; i < data.length; i++ ){
-            return (data[i].USERNAME === username)? data[i] : false ;
-        }
-    }
 
     getURL() {
         const localServer = "http://localhost:60080/api";

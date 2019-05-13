@@ -25,6 +25,17 @@ import org.springframework.web.bind.annotation.*;
         return personRepository.getPersonID(username, password);
     }
 
+    @GetMapping(path = "/getPerson")
+    public @ResponseBody
+    String getPerson(@RequestParam int person_id) {
+        //personRepository.save(person);
+
+        return "" + person_id +
+                ", " + personRepository.getSavingsBalanceFromFirstUser(person_id) +
+                ", " + personRepository.getCheckingBalanceFromFirstUser(person_id)
+                ;
+    }
+
     /**
      * @param username
      * @param password

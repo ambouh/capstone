@@ -1,5 +1,6 @@
 package com.capstoneproject.capstoneproject;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,8 @@ public class TransactionController {
     public @ResponseBody
     String viewAllHistory(@RequestParam int person_id) {
         List<String> categories = transactionRepository.getAllTransactionHistoryByID(person_id);
-        return "Transaction History " + categories;
+        String json = new Gson().toJson(categories);
+        return json;
     }
 
     @GetMapping(path = "/all-ascending")
