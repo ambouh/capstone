@@ -18,13 +18,13 @@ class TransactionForm extends Component {
         });
     };
 
-
-
     handleAddTrans = (event)=>{
         event.preventDefault();
         const {merchant, amount, category} = this.state;
-        this.props.handleTransactionView(merchant, amount, category);
+
+        this.props.addTransaction(merchant, amount, category);
         this.props.handleTransactionForm(event);
+        this.props.handleTransactionView();
     };
 
     render(){

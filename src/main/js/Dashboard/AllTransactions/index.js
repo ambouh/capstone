@@ -31,6 +31,26 @@ class AllTransactions extends Component {
                 return response.data;
             });
     }
+    addTransaction = (merchant, amount, category) => {
+        if ((merchant!=="") &&(!isNaN(amount)) &&(category !=="")) {
+            const verb = 'addTransaction?'+
+                'transaction_merchant=' + merchant +
+                '&person_id=' +this.getPersonId() +
+                '&transaction_amount=' + amount +
+                '&transaction_category=' + category;
+
+            const URL = Auth.getURL();
+            const ax = axios.create({
+                baseURL: URL
+            });
+
+            ax.get(verb)
+                .then((response)=>{
+                    return (response.data!= null)? this.setState({isSubmitted: true}): "FAILURE";
+                })
+                .catch();
+        }
+    };
 
     componentDidMount() {
         const person_id = this.getPersonId();
@@ -40,27 +60,12 @@ class AllTransactions extends Component {
     }
 
 
-    handleTransactionView = (merchant, amount, category) => {
-        let newTrans;
-        if ((merchant!=="") &&(!isNaN(amount)) &&(category !=="")) {
-
-            const verb = 'addTransaction?'+
-                'transaction_merchant=' + merchant +
-                '&person_id=' +this.getPersonId() +
-                '&transaction_amount=' + amount +
-                '&transaction_category=' + category;
-            const URL = Auth.getURL();
-            const ax = axios.create({
-                baseURL: URL
-            });
-
-            newTrans = ax.get(verb)
-                .then((response)=>{
-                    return response.data;
-                });
-
-            this.setState({isSubmitted: true, userTransaction: newTrans});
-        }
+    handleTransactionView = () => {
+        const person_id = this.getPersonId();
+        this.getUserTransactions(person_id).then((response) => {
+            console.log("I'm before userTrans state is sps to be set and cause the tbl to update");
+            this.setState({userTransaction: response})
+        });
     };
 
     handleTransactionForm = (event) => {
@@ -81,10 +86,9 @@ class AllTransactions extends Component {
 
         if (isTransactionOpen) {
             addTransView = (<TransactionForm handleTransactionView={this.handleTransactionView}
-                                             handleTransactionForm={this.handleTransactionForm}/>);
+                                             handleTransactionForm={this.handleTransactionForm} addTransaction={this.addTransaction}/>);
             transBtnTitle = "close form";
         }
-
         if (isSubmitted) {
             transBtnTitle = "add another transaction";
             addTransView = (

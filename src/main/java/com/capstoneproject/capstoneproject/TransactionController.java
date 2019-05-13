@@ -84,7 +84,7 @@ public class TransactionController {
                                                           transaction_category,transaction_memo,transaction_merchant,transaction_account_id);
 
         if (result == 1)
-            return "Created Transaction: " + tempTransaction.toString();
+            return viewAllHistory(person_id);
         else
             return ("Result is: " + result);
     }
@@ -93,7 +93,14 @@ public class TransactionController {
     public @ResponseBody
     String addTransaction(@RequestParam String transaction_merchant, @RequestParam int person_id,
                           @RequestParam Double transaction_amount, @RequestParam String transaction_category){
-        return addTransaction(transaction_amount, person_id, "", transaction_category, transaction_category, transaction_category, transaction_merchant, 1);
+        Date transactionDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sqlformatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        try {
+            transactionDate = formatter.parse("2019-05-01");
+        }
+        catch (ParseException e) {e.printStackTrace();}
+        return addTransaction(transaction_amount, person_id, sqlformatter.format(transactionDate), transaction_category, transaction_category, transaction_category, transaction_merchant, 1);
 
     }
 
