@@ -7,27 +7,19 @@ class Auth {
     development = 'http://localhost:3000/';
 
     login(username, password, callback) {
-        //const requestOption = "person_id="+ username + "&password=" + password;
+        const requestOption = "username="+ username + "&password=" + password;
         const verb = '';
         const URL = this.getURL();
         const ax = axios.create({
             baseURL: URL
         });
-        ax.get('person.json')
+        ax.get('login?' + requestOption)
             .then((response) =>{
                 const data = response.data;
-                const user = this.getUser(username, data);
 
-                if(user){
-                    const data = {
-                        "PERSON_ID": user.PERSON_ID,
-                        "USERNAME" : user.USERNAME,
-                        "AUTHENTICATED" : true
-                    };
+                if(data) {
+                    localStorage.setItem("person_id", data);
 
-                    localStorage.setItem("user", JSON.stringify(data));
-                    localStorage.setItem("person_id", user.PERSON_ID);
-                    this.authenticated= true;
                     let response = {
                         status: "SUCCESS",
                         data: {}
@@ -40,6 +32,8 @@ class Auth {
                     };
                     return callback(response);
                 }
+
+
             }).catch();
     }
 
@@ -51,7 +45,7 @@ class Auth {
     }
 
     isAuthenticated() {
-        return this.authenticated;
+        return localStorage.getItem("person_id")!=null;
     }
 
 
@@ -62,10 +56,8 @@ class Auth {
     }
 
     getURL() {
-        const production = "https://ambouh.github.io/transaxions/";
-        const development = 'http://localhost:3000/';
         const localServer = "http://localhost:60080/api";
-        return development;
+        return localServer;
     }
 
 }

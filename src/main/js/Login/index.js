@@ -27,55 +27,6 @@ class Login extends Component {
         });
     };
 
-    handleRequest = (event) => {
-        event.preventDefault();
-
-        let params = {
-            "person_id" : "1",
-            "transaction_id" : "1"
-        };
-
-        let pass = "b986ce68-be0e-4dd8-9da6-c37e0a39b2a5";
-        axios.get("http://localhost:60080/api/transaction",
-            {
-                'Access-Control-Allow-Origin': '*',
-                params: params,
-                withCredentials: true,
-                auth: {
-                    username: 'user',
-                    password: pass
-                }
-            }
-            )
-            .then((resp)=>{
-                const data = resp.data;
-
-                if(data){
-                    console.log("There's data" + data.toString());
-                } else {
-                    console.log("there's nothing");
-                }
-            })
-            .catch(function (error) {
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                    console.log(error.response.headers);
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                    // http.ClientRequest in node.js
-                    console.log(error.request);
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log('Error', error.message);
-                }
-                console.log(error.config);
-            });
-    };
-
     render(){
         return(
             <div className={"welcomeScreen"}>
@@ -87,7 +38,6 @@ class Login extends Component {
                     {/*<Link style={{textDecoration: "none"}}to="/register">
                         <button className={"button signUp"}>Sign Up</button>
                     </Link>*/}
-                    <button className={"button"} onClick={this.handleRequest}>Handle Request</button>
                 </form>
             </div>
 

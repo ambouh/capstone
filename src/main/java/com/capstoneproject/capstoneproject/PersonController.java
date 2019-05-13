@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.*;
 
     Person person = new Person();
 
-//    @GetMapping(path = "/login")
-//    public @ResponseBody
-//    boolean validateLogin(@RequestParam(value = "username") String username,
-//                          @RequestParam(value = "password") String password) {
-//        personRepository.save(person);
-//        return personRepository.findAllByUsernameAndPassword(username, password).isEmpty();
-//    }
+    @GetMapping(path = "/login")
+    public @ResponseBody
+    int validateLogin(@RequestParam String username,
+                          @RequestParam String password) {
+        //personRepository.save(person);
+
+        return personRepository.getPersonID(username, password);
+    }
 
     /**
      * @param username
